@@ -9,7 +9,7 @@
 		<content>[This value will be overwritten by Flash Builder in the output app.xml]</content>
 		<resizable>true</resizable>
 		<autoOrients>false</autoOrients>
-		<fullScreen>true</fullScreen>
+		<fullScreen>false</fullScreen>
 		<visible>true</visible>
 		<renderMode>gpu</renderMode>
   </initialWindow>

@@ -50,7 +50,7 @@ package
 			this.rotation += 5;
 			this.scaleX *= scaleFactor;
 			this.scaleY *= scaleFactor;
-			this.alpha = this.scaleX;
+			//this.alpha = this.scaleX;
 		}
 	}
 }
