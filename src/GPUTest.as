@@ -7,11 +7,15 @@ package
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 	
 	public class GPUTest extends Sprite
 	{
 
 		private const squareCount:uint = 1;
+		private var frameCount:int = 0;
+		private var FRAME_TEST_MAX:int = 500;
+		private var startTime:Number;
 
 		public function GPUTest()
 		{
@@ -25,7 +29,24 @@ package
 		
 		private function onClick(e:MouseEvent):void
 		{
-			this.placeSquare(e.stageX, e.stageY);
+			startTime = (new Date()).getTime();
+			frameCount = 0;
+			this.addEventListener(Event.ENTER_FRAME, statsHandler);
+			// Create ten of these
+			for (var i:int = 0; i < 10; i++)
+				this.placeSquare(stage.stageWidth*i/10, stage.stageHeight/2);
+		}
+		
+		private function statsHandler(event:Event):void
+		{
+			frameCount++;	
+			if (frameCount == FRAME_TEST_MAX)
+			{
+				var endTime:Number = (new Date()).getTime();
+				var tf:TextField = new TextField();
+				tf.text = "FPS: " + ((frameCount) /( (endTime - startTime)/1000)).toFixed(2);
+				addChild(tf);
+			}
 		}
 		
 		private function onDeactivate(e:Event):void
@@ -40,7 +61,7 @@ package
 		
 		public function placeSquare(x:uint, y:uint):void
 		{
-			var s:Square = new Square(this.stage.stageWidth / 2);
+			var s:Square = new Square(this.stage.stageWidth / 2, true);
 			s.x = x;
 			s.y = y;
 			this.addChild(s);
